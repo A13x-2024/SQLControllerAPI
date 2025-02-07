@@ -9,25 +9,25 @@ namespace SQLControllerTest.Controllers
     [ApiController]
     public class PotatoController : ControllerBase
     {
-        private readonly DataContext _Dbcontext;
+        private readonly DataContext _dataContext;
 
-        public PotatoController(DataContext dbContext)
+        public PotatoController(DataContext dataContext)
         {
-            _Dbcontext = dbContext;
+            _dataContext = dataContext;
         }
 
 
         [HttpGet]
         public async Task<ActionResult<List<Potato>>> GetAllPotatoes()
         {
-            var potatoes = await _Dbcontext.Potatoes.ToListAsync();
+            var potatoes = await _dataContext.Potatoes.ToListAsync();
             return Ok(potatoes);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Potato>> GetPotatoById(int id)
         {
-            var potato = await _Dbcontext.Potatoes.FindAsync(id);
+            var potato = await _dataContext.Potatoes.FindAsync(id);
             if (potato == null)
             {
                 return NotFound();
